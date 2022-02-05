@@ -1,5 +1,7 @@
 const { fund, userDonate, userFund, user } = require('../../models/index')
 const Joi = require('joi')
+const cloudinary = require('../utils/cloudinary');
+
 
 exports.getFunds = async (req, res) => {
     try {
@@ -108,11 +110,18 @@ exports.addFund = async (req, res) => {
     
 
     try {
+
+        const result = await cloudinary.uploader.upload(req.file.path, {
+            folder: 'holyways',
+            use_filename: true,
+            unique_filename: false,
+        });
+
         const newfund = await fund.create({
             title: req.body.title,
             goal: req.body.goal,
             description: req.body.description,
-            thumbnail: req.file.filename
+            thumbnail: result.public_id
         })
 
         await userFund.create({
