@@ -409,11 +409,16 @@ exports.addUserDonate = async( req, res) => {
         })
     }
     try {
+        const result = await cloudinary.uploader.upload(req.file.path, {
+            folder: 'holyways',
+            use_filename: true,
+            unique_filename: false,
+        });
         await userDonate.create({
             fundId,
             userId : id,
             donateAmount: req.body.donateAmount,
-            proofAttachment: req.file.filename
+            proofAttachment: result.public_id
         })
 
         const data = await fund.findOne({            
