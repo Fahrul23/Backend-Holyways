@@ -11,7 +11,7 @@ const router = express.Router()
 router.get('/check-auth',Auth, checkAuth)
 router.post('/login', Login)
 router.post('/register', Register)
-router.put('/edit-profile', Auth, uploadFile('image'), editProfile)
+router.put('/edit-profile', Auth, editProfile)
 
 // Users
 router.get('/users', getUsers)
