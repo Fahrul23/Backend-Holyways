@@ -93,14 +93,13 @@ exports.editProfile = async (req, res) => {
                 message: "user not found"
             })   
         }
-        
         const result = await cloudinary.uploader.upload(req.file.path, {
             folder: 'holyways',
             use_filename: true,
             unique_filename: false,
         });
-        const image = req.file ? req.file.filename : userExist.image
 
+        const image = req.file ? req.file.filename : userExist.image
         await user.update({
             fullName : dataInput.fullName,
             email: dataInput.email,

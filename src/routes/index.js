@@ -6,12 +6,21 @@ const {Auth} = require('../middlewares/Auth')
 const {uploadFile} = require('../middlewares/uploadFile')
 const router = express.Router()
 
+var bodyParser = require('body-parser')
+
+var app = express()
+
+// create application/json parser
+var jsonParser = bodyParser.json()
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 // Auth
 router.get('/check-auth',Auth, checkAuth)
 router.post('/login', Login)
 router.post('/register', Register)
-router.put('/edit-profile', Auth, editProfile)
+router.patch('/edit-profile', Auth, uploadFile('image'), editProfile)
 
 // Users
 router.get('/users', getUsers)
