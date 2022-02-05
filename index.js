@@ -10,11 +10,6 @@ app.use(cors())
 
 app.use('/api/v1', Routes)
 app.use('/uploads', express.static('uploads'))
-app.use('/', (req, res) => {
-    return res.status(200).send({
-        message: "Hello World!!"
-    })
-})
 
 app.listen(PORT, () => {
     console.log(`server running at http://localhost:${PORT}`)
